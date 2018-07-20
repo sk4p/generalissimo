@@ -1,0 +1,215 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+
+  <Frame name="GeneralissimoCharacterTemplate" virtual="true">
+    <Size x="400" y="30"/>
+    <Layers>
+      <Layer level="BACKGROUND">
+<!--
+	<Texture setAllPoints="true">
+	  <Color r="0.3" g="0.0" b="0.3" a="0.5"/>
+	</Texture> -->
+      </Layer>
+    </Layers>
+    <Frames>
+      <Frame parentKey="name" name="$parentCharName" enableMouse="true">
+	<Size x="100" y="30"/>
+    	<Anchors><Anchor point="LEFT" x="3"/></Anchors>
+	<Layers>
+	  <Layer level="OVERLAY">
+	    <FontString parentKey="text" inherits="GameFontNormal">
+	      <Anchors><Anchor point="LEFT"/></Anchors>
+	    </FontString>
+	  </Layer>
+	  <Layer level="HIGHLIGHT">
+	    <FontString parentKey="over" inherits="GameFontNormalSmall">
+	      <Anchors><Anchor point="BOTTOMLEFT" y="-8"/></Anchors>
+	    </FontString>
+	  </Layer>
+	</Layers>
+      </Frame>
+
+      <Frame parentKey="level" name="$parentLevel">
+	<Size x="50" y="30"/>
+    	<Anchors><Anchor point="LEFT" x="3" relativePoint="RIGHT" relativeTo="$parentCharName"/></Anchors>
+	<Layers>
+	  <Layer level="OVERLAY">
+	    <FontString parentKey="text" inherits="GameFontNormal" text="level">
+	      <Anchors><Anchor point="RIGHT"/></Anchors>
+	    </FontString>
+	  </Layer>
+	</Layers>
+      </Frame>
+
+      <Frame parentKey="ail" name="$parentAvgItemLevel">
+	<Size x="50" y="30"/>
+    	<Anchors><Anchor point="LEFT" x="3" relativePoint="RIGHT" relativeTo="$parentLevel"/></Anchors>
+	<Layers>
+	  <Layer level="OVERLAY">
+	    <FontString parentKey="text" inherits="GameFontNormal" text="ilevel">
+	      <Anchors><Anchor point="RIGHT"/></Anchors>
+	    </FontString>
+	  </Layer>
+	</Layers>
+      </Frame>
+
+      <Frame parentKey="gold" name="$parentGold">
+	<Size x="150" y="30"/>
+    	<Anchors><Anchor point="LEFT" x="3" relativePoint="RIGHT" relativeTo="$parentAvgItemLevel"/></Anchors>
+	<Layers>
+	  <Layer level="OVERLAY">
+	    <FontString parentKey="text" inherits="GameFontNormal" text="gold">
+	      <Anchors><Anchor point="RIGHT"/></Anchors>
+	    </FontString>
+	  </Layer>
+	</Layers>
+      </Frame>
+
+    </Frames>
+  </Frame>
+
+  <Frame name="GeneralissimoFrameBackgroundTemplate" inherits="InsetFrameTemplate" virtual="true">
+    <Anchors>
+      <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-60" x="4" relativeTo="GeneralissimoFrame"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-6" y="5" relativeTo="GeneralissimoFrame"/>
+    </Anchors>
+  </Frame>
+
+  <Frame name="GeneralissimoFrame" parent="UIParent" frameStrata="HIGH" hidden="true" inherits="BasicFrameTemplate" movable="true">
+    <Scripts>
+      <OnLoad>
+	self:RegisterForDrag("LeftButton")
+	self.elapsed = 0
+      </OnLoad>
+      <OnDragStart>
+	self:StartMoving()
+	self.isMoving = true
+      </OnDragStart>
+      <OnDragStop>
+	self:StopMovingOrSizing()
+	self.isMoving = false
+      </OnDragStop>
+      <OnShow>
+	Generalissimo:OnShow()
+	PlaySound(1115)
+      </OnShow>
+      <OnHide>
+	PlaySound(1115)
+      </OnHide>
+    </Scripts>
+    <Size x="512" y="512"/>
+
+    <Anchors>
+      <Anchor point="TOPLEFT" x="0" y="-100"/>
+    </Anchors>
+
+    <Layers>
+      <Layer level="OVERLAY">
+	<FontString parentKey="title" inherits="GameFontNormal" text="Generalissimo">
+	  <Anchors><Anchor point="TOP" y="-5"/></Anchors>
+	</FontString>
+      </Layer>
+    </Layers>
+
+
+    <Frames>
+
+      <Frame name="$parentTotals" parentKey="totals" inherits="GeneralissimoCharacterTemplate">
+	<Anchors><Anchor point="BOTTOMLEFT" x="7" y="5"/></Anchors>
+      </Frame>
+
+      <Button name="$parentTab1" parentKey="SummaryTab" inherits="TabButtonTemplate" text="Summary" id="1" frameLevel="4" parentArray="Tabs">
+	<KeyValues>
+	  <KeyValue key="minWidth" value="57" type="number"/>
+	</KeyValues>
+	<Anchors>
+	  <Anchor point="TOPLEFT" x="58" y="-26"/>
+	</Anchors>
+	<Scripts>
+	  <!--	<OnClick function="WardrobeCollectionFrame_ClickTab"/> -->
+	</Scripts>
+      </Button>
+      
+      <Button name="$parentTab2" parentKey="CurrencyTab" inherits="TabButtonTemplate" text="Currency" id="1" frameLevel="4" parentArray="Tabs">
+	<KeyValues>
+	  <KeyValue key="minWidth" value="57" type="number"/>
+	</KeyValues>
+	<Anchors>
+	  <Anchor point="TOPLEFT" relativeTo="$parentTab1" relativePoint="TOPRIGHT"/>
+	</Anchors>
+	<Scripts>
+	  <!--	<OnClick function="WardrobeCollectionFrame_ClickTab"/> -->
+	</Scripts>
+      </Button>
+      
+      <Button name="$parentTab3" parentKey="ProfessionsTab" inherits="TabButtonTemplate" text="Professions" id="1" frameLevel="4" parentArray="Tabs">
+	<KeyValues>
+	  <KeyValue key="minWidth" value="57" type="number"/>
+	</KeyValues>
+	<Anchors>
+	  <Anchor point="TOPLEFT" relativeTo="$parentTab2" relativePoint="TOPRIGHT"/>
+	</Anchors>
+	<Scripts>
+	  <!--	<OnClick function="WardrobeCollectionFrame_ClickTab"/> -->
+	</Scripts>
+      </Button>
+
+      <ScrollFrame name="GeneralissimoSummaryFrame" parentKey="SummaryFrame">
+	<Anchors>
+	  <Anchor point="TOPLEFT" relativePoint="TOPLEFT" y="-60" x="4" relativeTo="GeneralissimoFrame"/>
+	  <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-31" y="35" relativeTo="GeneralissimoFrame"/>
+	</Anchors>
+	<Layers>
+	  <Layer level="BACKGROUND">
+	    <Texture setAllPoints="true">
+	      <Color r="0.0" g="0.0" b="0.0"/>
+	    </Texture>
+	  </Layer>
+	</Layers>
+
+	<Frames>
+	  <Slider name="$parentVSlider" orientation="VERTICAL" minValue="0" maxValue="100" defaultValue="0" valueStep="1">
+	    <Size x="25" y="422"/>
+	    <Anchors>
+	      <Anchor point="LEFT" relativePoint="RIGHT"  relativeTo="GeneralissimoSummaryFrame"/>
+	    </Anchors>
+
+	    <Backdrop edgeFile="Interface\Buttons\UI-SliderBar-Border" bgFile="Interface\Buttons\UI-SliderBar-Background" tile="true">
+	      <EdgeSize>
+		<AbsValue val="8"/>
+	      </EdgeSize>
+	      <TileSize>
+		<AbsValue val="8"/>
+	      </TileSize>
+	      <BackgroundInsets>
+		<AbsInset left="3" right="3" top="6" bottom="6"/>
+	      </BackgroundInsets>
+	    </Backdrop>
+
+	    <Scripts>
+	      <OnValueChanged>
+		GeneralissimoSummaryFrame:SetVerticalScroll(self:GetValue())
+	      </OnValueChanged>
+	    </Scripts>
+	    <ThumbTexture name="$parentThumbTexture" file="Interface\Buttons\UI-ScrollBar-Knob">
+	      <Size x="25" y="25"/>
+	    </ThumbTexture>
+	  </Slider>
+	</Frames>
+	
+	<ScrollChild>
+	  <Frame name="GeneralissimoSummaryInterior">
+	    <Size x="250" y="1000"/>
+	    <Frames>
+	      <Frame name="$parentHeader" parentKey="header" inherits="GeneralissimoCharacterTemplate">
+		<Anchors><Anchor point="TOPLEFT" x="5" y="-5"/></Anchors>
+	      </Frame>
+	    </Frames>
+	  </Frame>
+	</ScrollChild>
+      </ScrollFrame>
+
+    </Frames>
+
+  </Frame>
+
+</Ui>

@@ -1,0 +1,10 @@
+## Interface: 80000
+## Title: Generalissimo
+## Version: 0.01
+## Author: Shawn Knight <shawnknight@gmail.com>
+## SavedVariables: GeneralissimoDB
+## Notes: Provides info about the inventory/professions of your alts.
+## Dependencies: Ace3
+
+Generalissimo.xml
+Generalissimo.lua
